@@ -16,7 +16,32 @@ const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
     <title>{fullTitle}</title>
+    <meta name="title" content={fullTitle} />
+    <meta name="description" content="Blog pessoal de Elias Souza sobre desenvolvimento de software, tecnologia e aprendizados." />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+
+    <!-- Sitemap -->
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content="Blog pessoal de Elias Souza sobre desenvolvimento de software, tecnologia e aprendizados." />
+    <meta property="og:image" content={new URL("/favicon.svg", Astro.site)} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={fullTitle} />
+    <meta property="twitter:description" content="Blog pessoal de Elias Souza sobre desenvolvimento de software, tecnologia e aprendizados." />
+    <meta property="twitter:image" content={new URL("/favicon.svg", Astro.site)} />
   </head>
   <body class="transition-colors duration-500">
     <header class="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5">
