@@ -1,0 +1,126 @@
+---
+---
+
+<div class="relative">
+  <button
+    id="search-button"
+    class="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-muted-foreground ring-offset-background transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+    aria-label="Search posts"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <span class="hidden sm:inline-flex">Pesquisar...</span>
+    <kbd class="pointer-events-none hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
+      <span class="text-xs">⌘</span>K
+    </kbd>
+  </button>
+
+  <dialog
+    id="search-dialog"
+    class="fixed top-24 left-1/2 -translate-x-1/2 z-[100] h-fit max-h-[70vh] w-full max-w-xl overflow-hidden rounded-2xl border border-foreground/10 bg-background/80 backdrop-blur-xl p-0 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)] backdrop:bg-background/40 backdrop:backdrop-blur-sm open:flex open:flex-col"
+  >
+    <div class="border-b border-foreground/5 bg-transparent px-5 py-4">
+      <div class="flex items-center gap-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-primary/60"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input
+          id="search-input"
+          type="text"
+          placeholder="O que você está procurando?"
+          class="h-8 w-full bg-transparent text-lg font-medium placeholder:text-muted-foreground/40 focus:outline-none"
+        />
+        <div class="flex items-center gap-2">
+          <kbd class="pointer-events-none select-none rounded border border-foreground/10 bg-muted/50 px-1.5 py-0.5 font-mono text-[10px] font-medium text-muted-foreground">ESC</kbd>
+        </div>
+      </div>
+    </div>
+    <div id="search-results" class="max-h-[50vh] overflow-y-auto p-3 empty:hidden scrollbar-hide">
+      <!-- Results will be injected here -->
+    </div>
+    <div id="no-results" class="hidden p-12 text-center">
+      <p class="text-sm font-medium text-muted-foreground">Não encontramos nada relacionado...</p>
+      <p class="mt-1 text-xs text-muted-foreground/40">Tente buscar por termos mais genéricos.</p>
+    </div>
+  </dialog>
+</div>
+
+<script>
+  interface SearchItem {
+    id: string;
+    title: string;
+    description: string;
+    tags: string[];
+    content: string;
+    slug: string;
+  }
+
+  let searchData: SearchItem[] = [];
+  const searchButton = document.getElementById('search-button');
+  const searchDialog = document.getElementById('search-dialog') as HTMLDialogElement;
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const searchResults = document.getElementById('search-results');
+  const noResults = document.getElementById('no-results');
+
+  async function initSearch() {
+    try {
+      const res = await fetch('/search.json');
+      searchData = await res.json();
+    } catch (e) {
+      console.error('Failed to load search data', e);
+    }
+  }
+
+  function toggleSearch() {
+    if (searchDialog.open) {
+      searchDialog.close();
+    } else {
+      searchDialog.showModal();
+      searchInput.focus();
+      if (searchData.length === 0) initSearch();
+    }
+  }
+
+  searchButton?.addEventListener('click', toggleSearch);
+
+  window.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      toggleSearch();
+    }
+  });
+
+  searchInput?.addEventListener('input', (e) => {
+    const query = (e.target as HTMLInputElement).value.toLowerCase();
+    
+    if (!query) {
+      if (searchResults) searchResults.innerHTML = '';
+      noResults?.classList.add('hidden');
+      return;
+    }
+
+    const filtered = searchData.filter((post: SearchItem) => 
+      post.title.toLowerCase().includes(query) || 
+      post.description.toLowerCase().includes(query) ||
+      post.tags.some((tag: string) => tag.toLowerCase().includes(query)) ||
+      post.content.toLowerCase().includes(query)
+    );
+
+    if (searchResults) {
+      if (filtered.length > 0) {
+        searchResults.innerHTML = filtered.map((post: SearchItem) => `
+          <a href="/blog/${post.slug}" class="group flex flex-col gap-1 rounded-xl px-4 py-3 hover:bg-primary/5 transition-all duration-200">
+            <span class="text-base font-semibold text-foreground group-hover:text-primary transition-colors">${post.title}</span>
+            <span class="text-sm text-muted-foreground/70 line-clamp-1 font-medium">${post.description}</span>
+          </a>
+        `).join('');
+        noResults?.classList.add('hidden');
+      } else {
+        searchResults.innerHTML = '';
+        noResults?.classList.remove('hidden');
+      }
+    }
+  });
+
+  document.getElementById('close-search')?.addEventListener('click', () => searchDialog.close());
+  searchDialog?.addEventListener('click', (e) => {
+    if (e.target === searchDialog) searchDialog.close();
+  });
+</script>

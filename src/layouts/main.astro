@@ -1,15 +1,48 @@
 ---
 import "@/styles/global.css"
+import Search from "@/components/Search.astro"
+
+interface Props {
+	title?: string;
+}
+
+const { title } = Astro.props;
+const siteTitle = "eliasnsz blog";
+const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
 ---
 
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Astro App</title>
+    <title>{fullTitle}</title>
   </head>
-  <body>
-    <slot />
+  <body class="transition-colors duration-500">
+    <header class="sticky top-0 z-50 glass">
+      <div class="mx-auto max-w-2xl px-6 py-4 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-1 text-xl font-bold font-sans tracking-tighter">
+          <span class="text-foreground">eliasnsz</span>
+          <span class="text-primary">blog</span>
+        </a>
+        <nav class="flex items-center gap-6 text-sm font-medium tracking-tight font-sans">
+          <Search />
+          <a href="/" class="text-muted-foreground hover:text-primary transition-all duration-300 relative group">
+            Home
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full opacity-50"></span>
+          </a>
+          <a href="/sobre" class="text-muted-foreground hover:text-primary transition-all duration-300 relative group">
+            Sobre
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full opacity-50"></span>
+          </a>
+        </nav>
+      </div>
+    </header>
+    <main class="relative z-10">
+      <slot />
+    </main>
+    <footer class="mx-auto max-w-2xl px-6 py-8 text-xs text-muted-foreground border-t border-foreground/5 mt-12 text-center font-sans tracking-[0.2em] opacity-40">
+      <p>eliasnszblog © {new Date().getFullYear()}</p>
+    </footer>
   </body>
 </html>
