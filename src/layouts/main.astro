@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { title } = Astro.props;
-const siteTitle = "eliasnsz blog";
+const siteTitle = "blog.eliasnsz";
 const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
 ---
 
@@ -21,9 +21,9 @@ const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
   <body class="transition-colors duration-500">
     <header class="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5">
       <div class="mx-auto max-w-2xl px-6 py-4 flex items-center justify-between">
-        <a href="/" class="flex items-center gap-1 text-xl font-bold font-sans tracking-tighter">
-          <span class="text-foreground">eliasnsz</span>
+        <a href="/" class="flex items-center text-xl font-bold font-sans tracking-tighter">
           <span class="text-primary">blog</span>
+          <span class="text-foreground">.eliasnsz</span>
         </a>
         <nav class="flex items-center gap-6 text-sm font-medium tracking-tight font-sans">
           <Search />
@@ -42,7 +42,7 @@ const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
       <slot />
     </main>
     <footer class="mx-auto max-w-2xl px-6 py-8 text-xs text-muted-foreground border-t border-foreground/5 mt-12 text-center font-sans tracking-[0.2em] opacity-40">
-      <p>eliasnszblog © {new Date().getFullYear()}</p>
+      <p>blog.eliasnsz © {new Date().getFullYear()}</p>
     </footer>
   </body>
 </html>

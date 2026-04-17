@@ -22,10 +22,6 @@ const groups = Object.keys(groupedPosts);
 
 <Layout>
 	<div class="mx-auto max-w-2xl px-6 py-8 relative">
-		<header class="mb-8">
-			<h1 class="text-4xl font-semibold tracking-tight text-foreground">Blog</h1>
-		</header>
-
 		<div class="space-y-8">
 			{Object.entries(groupedPosts).map(([group, groupPosts]) => (
 				<section id={slugify(group)}>
