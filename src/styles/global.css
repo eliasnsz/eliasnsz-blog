@@ -242,10 +242,3 @@
 
   .prose :where(img) { margin-top: 3rem; margin-bottom: 3rem; border-radius: 1rem; box-shadow: 0 20px 40px -20px oklch(0 0 0 / 0.2); }
 }
-
-.glass {
-  background: oklch(from var(--background) l c h / 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid oklch(from var(--foreground) l c h / 0.05);
-}
