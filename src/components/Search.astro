@@ -106,7 +106,7 @@
     if (searchResults) {
       if (filtered.length > 0) {
         searchResults.innerHTML = filtered.map((post: SearchItem) => `
-          <a href="/blog/${post.slug}" class="group flex flex-col gap-1 rounded-xl px-4 py-3 hover:bg-primary/5 transition-all duration-200">
+          <a href="/${post.slug}" class="group flex flex-col gap-1 rounded-xl px-4 py-3 hover:bg-primary/5 transition-all duration-200">
             <span class="text-base font-semibold text-foreground group-hover:text-primary transition-colors">${post.title}</span>
             <span class="text-sm text-muted-foreground/70 line-clamp-1 font-medium">${post.description}</span>
           </a>

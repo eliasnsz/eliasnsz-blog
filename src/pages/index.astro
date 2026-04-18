@@ -30,16 +30,20 @@ const groups = Object.keys(groupedPosts);
 					</h2>
 					<hr class="mb-4 border-foreground/5" />
 					<ul class="list-disc list-inside space-y-1 ml-1">
-						{groupPosts.map((post) => (
-							<li>
-								<a 
-									href={`/blog/${post.id}`}
-									class="text-lg sm:text-xl font-medium text-sky-600 underline underline-offset-4 decoration-sky-600/30 visited:text-sky-700/80 hover:text-sky-800 hover:decoration-sky-800/50 transition-colors"
-								>
-									{post.data.title}
-								</a>
-							</li>
-						))}
+						{groupPosts.map((post) => {
+							const url = `/${post.id}`;
+							
+							return (
+								<li>
+									<a 
+										href={url}
+										class="text-lg sm:text-xl font-medium text-sky-600 underline underline-offset-4 decoration-sky-600/30 visited:text-sky-700/80 hover:text-sky-800 hover:decoration-sky-800/50 transition-colors"
+									>
+										{post.data.title}
+									</a>
+								</li>
+							);
+						})}
 					</ul>
 				</section>
 			))}
