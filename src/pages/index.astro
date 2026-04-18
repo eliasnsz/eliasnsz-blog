@@ -25,7 +25,7 @@ const groups = Object.keys(groupedPosts);
 		<div class="space-y-8">
 			{Object.entries(groupedPosts).map(([group, groupPosts]) => (
 				<section id={slugify(group)}>
-					<h2 class="mb-2 text-2xl font-bold font-sans text-foreground capitalize tracking-tighter">
+					<h2 class="mb-2 text-xl sm:text-2xl font-bold font-sans text-foreground capitalize tracking-tighter">
 						{group}
 					</h2>
 					<hr class="mb-4 border-foreground/5" />
@@ -34,7 +34,7 @@ const groups = Object.keys(groupedPosts);
 							<li>
 								<a 
 									href={`/blog/${post.id}`}
-									class="text-xl font-medium text-purple-600 visited:text-purple-900/60 hover:text-purple-700 hover:underline underline-offset-4 decoration-purple-600/30 transition-colors"
+									class="text-lg sm:text-xl font-medium text-sky-600 underline underline-offset-4 decoration-sky-600/30 visited:text-sky-700/80 hover:text-sky-800 hover:decoration-sky-800/50 transition-colors"
 								>
 									{post.data.title}
 								</a>
