@@ -3,12 +3,12 @@ import "@/styles/global.css"
 import Search from "@/components/Search.astro"
 
 interface Props {
-	title?: string;
+  title?: string
 }
 
-const { title } = Astro.props;
-const siteTitle = "blog.eliasnsz";
-const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
+const { title } = Astro.props
+const siteTitle = "blog.eliasnsz"
+const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle
 ---
 
 <html lang="pt-BR">
@@ -17,11 +17,18 @@ const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <meta
+      name="google-site-verification"
+      content="xckm92TgmoAHHOzblKo_zJBtqpzRiJ-fFwxsE2rQO6w"
+    />
 
     <!-- Primary Meta Tags -->
     <title>{fullTitle}</title>
     <meta name="title" content={fullTitle} />
-    <meta name="description" content="Blog pessoal de Elias Souza sobre desenvolvimento de software, tecnologia e aprendizados." />
+    <meta
+      name="description"
+      content="Blog pessoal de Elias Souza sobre desenvolvimento de software, tecnologia e aprendizados."
+    />
 
     <!-- Canonical URL -->
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
@@ -33,72 +40,103 @@ const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={fullTitle} />
-    <meta property="og:description" content="Blog pessoal de Elias Souza sobre desenvolvimento de software, tecnologia e aprendizados." />
+    <meta
+      property="og:description"
+      content="Blog pessoal de Elias Souza sobre desenvolvimento de software, tecnologia e aprendizados."
+    />
     <meta property="og:image" content={new URL("/favicon.svg", Astro.site)} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={fullTitle} />
-    <meta property="twitter:description" content="Blog pessoal de Elias Souza sobre desenvolvimento de software, tecnologia e aprendizados." />
-    <meta property="twitter:image" content={new URL("/favicon.svg", Astro.site)} />
+    <meta
+      property="twitter:description"
+      content="Blog pessoal de Elias Souza sobre desenvolvimento de software, tecnologia e aprendizados."
+    />
+    <meta
+      property="twitter:image"
+      content={new URL("/favicon.svg", Astro.site)}
+    />
 
     <script is:inline>
       const theme = (() => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme")
         }
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          return 'dark';
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark"
         }
-        return 'light';
-      })();
+        return "light"
+      })()
 
-      if (theme === 'light') {
-        document.documentElement.classList.remove('dark');
+      if (theme === "light") {
+        document.documentElement.classList.remove("dark")
       } else {
-        document.documentElement.classList.add('dark');
+        document.documentElement.classList.add("dark")
       }
 
-      window.localStorage.setItem('theme', theme);
+      window.localStorage.setItem("theme", theme)
 
       const setupThemeToggle = () => {
-        const toggles = document.querySelectorAll(".themeToggle");
-        toggles.forEach(toggle => {
+        const toggles = document.querySelectorAll(".themeToggle")
+        toggles.forEach((toggle) => {
           toggle.addEventListener("click", () => {
-            const element = document.documentElement;
-            element.classList.toggle("dark");
-            const isDark = element.classList.contains("dark");
-            localStorage.setItem("theme", isDark ? "dark" : "light");
-          });
-        });
-      };
+            const element = document.documentElement
+            element.classList.toggle("dark")
+            const isDark = element.classList.contains("dark")
+            localStorage.setItem("theme", isDark ? "dark" : "light")
+          })
+        })
+      }
 
       // Inicializa no carregamento e em cada navegação do Astro
-      document.addEventListener('astro:page-load', setupThemeToggle);
+      document.addEventListener("astro:page-load", setupThemeToggle)
       // Fallback para carregamento inicial sem transitions
-      document.addEventListener('DOMContentLoaded', setupThemeToggle);
+      document.addEventListener("DOMContentLoaded", setupThemeToggle)
     </script>
   </head>
   <body>
-    <header class="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5">
-      <div class="mx-auto max-w-2xl px-6 py-4 flex items-center justify-between">
-        <a href="/" class="flex items-center text-xl font-bold font-sans tracking-tighter">
+    <header
+      class="sticky top-0 z-50 border-b border-foreground/5 bg-background/80 backdrop-blur-md"
+    >
+      <div
+        class="mx-auto flex max-w-2xl items-center justify-between px-6 py-4"
+      >
+        <a
+          href="/"
+          class="flex items-center font-sans text-xl font-bold tracking-tighter"
+        >
           <span class="text-primary">blog</span>
           <span class="text-foreground">.eliasnsz</span>
         </a>
-        <nav class="flex items-center gap-4 sm:gap-6 text-sm font-medium tracking-tight font-sans">
+        <nav
+          class="flex items-center gap-4 font-sans text-sm font-medium tracking-tight sm:gap-6"
+        >
           <Search />
-          <a href="/" class="text-muted-foreground hover:text-primary transition-all duration-300 relative group hidden sm:block">
+          <a
+            href="/"
+            class="group relative hidden text-muted-foreground transition-all duration-300 hover:text-primary sm:block"
+          >
             Home
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full opacity-50"></span>
+            <span
+              class="absolute -bottom-1 left-0 h-0.5 w-0 bg-primary opacity-50 transition-all duration-300 group-hover:w-full"
+            ></span>
           </a>
-          <a href="/sobre" class="text-muted-foreground hover:text-primary transition-all duration-300 relative group hidden sm:block">
+          <a
+            href="/sobre"
+            class="group relative hidden text-muted-foreground transition-all duration-300 hover:text-primary sm:block"
+          >
             Sobre
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full opacity-50"></span>
+            <span
+              class="absolute -bottom-1 left-0 h-0.5 w-0 bg-primary opacity-50 transition-all duration-300 group-hover:w-full"
+            ></span>
           </a>
           <button
-            class="themeToggle relative flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:text-foreground transition-all duration-300"
+            class="themeToggle relative flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-all duration-300 hover:text-foreground"
             aria-label="Alternar tema"
           >
             <svg
@@ -144,7 +182,9 @@ const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
     <main class="relative z-10">
       <slot />
     </main>
-    <footer class="mx-auto max-w-2xl px-6 py-8 text-xs text-muted-foreground border-t border-foreground/5 mt-12 text-center font-sans tracking-[0.2em] opacity-40">
+    <footer
+      class="mx-auto mt-12 max-w-2xl border-t border-foreground/5 px-6 py-8 text-center font-sans text-xs tracking-[0.2em] text-muted-foreground opacity-40"
+    >
       <p>blog.eliasnsz © {new Date().getFullYear()}</p>
     </footer>
   </body>
